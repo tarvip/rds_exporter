@@ -511,11 +511,14 @@ func (m *osMetrics) makePrometheusMetrics(region string, labels map[string]strin
 		// we can't make node_exporter-like metrics: AWS gives us rates, node_exporter - total counters
 	}
 
+	// Do not collect proccess list metrics, labels have really high cardinality
+	/*
 	for _, p := range m.ProcessList {
 		metrics = makeRDSProcessListMetrics(&p, constLabels)
 		res = append(res, metrics...)
 		// no node_exporter-like metrics
 	}
+	*/
 
 	metrics = makeGenericMetrics(m.Swap, "rdsosmetrics_swap_", constLabels)
 	res = append(res, metrics...)
